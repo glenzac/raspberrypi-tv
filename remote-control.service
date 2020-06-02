@@ -1,0 +1,15 @@
+[Unit]
+Description=My service
+After=network.target
+
+[Service]
+#ExecStart=sudo cec-client | ./remote.sh
+ExecStart=sudo ./start.sh
+WorkingDirectory=/home/pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target

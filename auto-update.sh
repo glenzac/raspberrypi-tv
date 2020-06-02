@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "**********" >> /logs/update-date
+'date' >> /logs/update-date
+echo "UPDATING SYSTEM SOFTWARE - UPDATE" >> /logs/update-log
+sudo apt-get update
+echo "UPGRADING SYSTEM SOFTWARE - UPGRADE" >> /logs/update-log
+sudo apt-get -y full-upgrade
+echo "REMOVING OBSOLETE DEPENDENCIES" >> /logs/update-log
+sudo apt-get –y autoremove
+echo "REMOVING OBSOLETE FILES" >> /logs/update-log
+sudo apt-get autoclean
+echo "SYSTEM REBOOT" >> /logs/update-log
+sudo reboot
