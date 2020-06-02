@@ -1,16 +1,21 @@
-import time
-import socket
-import os
+#import time  #required for sleep 
+import socket #required for getting IP Address
+import os  #required to get IP Address
+import subprocess  #required to run shell commands
+import webbrowser
 from guizero import App, Text, TextBox, PushButton, Slider, Picture, Combo, CheckBox, Box
 
-def highlight(widget):
+
+def highlight(widget): #use to indicate button press 
     widget.bg = "lightblue"
 
 def lowlight(widget):
-    bg.widget = "white"
+    widget.bg = "white"
 
 def search_yt_query():
-    welcome_message.value = my_name.value
+    url = "https://www.youtube.com/results?search_query={}".format(search_query_box.value)    
+    webbrowser.open(url)
+ 
 
 def change_text_size(slider_value):
     welcome_message.size = slider_value
@@ -19,31 +24,32 @@ def load_channel():
     welcome_message.value = my_name.value
     
 def load_channel_asianet():
-    os.system('streamlink --player=vlc  https://www.youtube.com/watch?v=iL53Y28Rp84 240p &')
+    #os.system('streamlink --player=vlc  https://www.youtube.com/watch?v=iL53Y28Rp84 240p &')
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=iL53Y28Rp84 240p &', shell=True)
 def load_channel_manorama():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=jjH6v95z3Nw 240p &', shell=True)
 def load_channel_24news():
-    welcome_message.value = my_name.value
-def load_channel_mathurbhumi():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=zcrUCvBD16k 240p &', shell=True)
+def load_channel_mathrubhumi():
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=irF-4N_fHjs 240p &', shell=True)
 def load_channel_kairali():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=ET5Y3H3Jusc 240p &', shell=True)
 def load_channel_mediaone():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=d1iwUB9YFnA 240p &', shell=True)
 def load_channel_amrita():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=iL53Y28Rp84 240p &', shell=True)
 def load_channel_parumala():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=hjAj_rcbQDU 240p &', shell=True)
 def load_channel_reporter():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=Qx-f55XBPG4 240p &', shell=True)
 def load_channel_news18():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=lm-dkwdTDLE 240p &', shell=True)
 def load_channel_jeevan():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=25Gr0Q2oyuc 240p &', shell=True)
 def load_channel_janam():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=_WK30gnY3_4 240p &', shell=True)
 def load_channel_ndtv():
-    welcome_message.value = my_name.value
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=l9ViElip9q4 240p &', shell=True)
     
 def get_ip():
     gw = os.popen("ip -4 route show default").read().split()
@@ -53,23 +59,25 @@ def get_ip():
     ipdisplay.value = ipaddr
 
 def launch_kodi():
-    welcome_message.value = my_name.value
+    subprocess.call('kodi', shell=True)
 
 
 def stop_video():
-    welcome_message.value = my_name.value
+    subprocess.call('sudo killall vlc', shell=True)
     
 
 def stop_all():
-    welcome_message.value = my_name.value
+    subprocess.call('sudo pkill chromium-browse', shell=True)
     
 
 def update_firmware():
-    welcome_message.value = my_name.value
+    subprocess.call('sudo ./auto-update.sh', shell=True)
 
 
 def run_clean():
-    welcome_message.value = my_name.value
+    #add more cleaning functions
+    subprocess.call('sudo apt autoremove', shell=True)
+    subprocess.call('sudo apt autoclean', shell=True)
 
 
 def refresh_links():
@@ -77,21 +85,13 @@ def refresh_links():
 
 app = App(title="TV GUI",width=1920, height=1080)
 
-
-
 title_box = Box(app, width="fill", align="top", border=True)
 Text(title_box, text="Rpi TV Menu",size=20,font="Lato",color="black", align="top")
 Text(title_box, text="          ",size=20,font="Lato",color="black", align="top")
 
-youtube_box = Box(app, width="fill", align="top", border=True)
-search_query_box = TextBox(youtube_box, width ="fill",align="left",multiline=False, height=3)
-search_query_box.text_size = 30
-search_button = PushButton(youtube_box, command=search_yt_query, text="Search YouTube", align="right",width=30, height=3)
-search_button.text_size = 20
 
 channel_box = Box(app, width="fill",layout="grid", align="top", border=False)
-channel_box.bg="white"
-
+channel_box.bg="#ffcc80"
 
 button1 = PushButton(channel_box, command=load_channel_asianet, text="Asianet News", grid=[0,0],width=27, height=5)
 button1.text_size=20
@@ -101,7 +101,7 @@ button = PushButton(channel_box, command=load_channel_manorama, text="Manorama N
 button.text_size=20
 button = PushButton(channel_box, command=load_channel_24news, text="24 News",grid=[2,0],width=27, height=5)
 button.text_size=20
-button = PushButton(channel_box, command=load_channel_mathurbhumi, text="Mathurbhumi News",grid=[3,0],width=27, height=5)
+button = PushButton(channel_box, command=load_channel_mathrubhumi, text="Mathrubhumi News",grid=[3,0],width=27, height=5)
 button.text_size=20
 button = PushButton(channel_box, command=load_channel_kairali, text="Kairali News",grid=[0,1],width=27, height=5)
 button.text_size=20
@@ -120,6 +120,16 @@ button.text_size=20
 button = PushButton(channel_box, command=load_channel_ndtv, text="NDTV Live",grid=[3,2],width=27, height=5)
 button.text_size=20
 
+youtube_box = Box(app, width="fill", align="top", border=False)
+youtube_box.bg="#ff5f4e"
+search_query_box = TextBox(youtube_box, width ="fill",align="left",multiline=False)
+search_query_box.text_size = 30
+search_query_box.bg = "#dfe6e9"
+search_button = PushButton(youtube_box, command=search_yt_query, text="Search YouTube", align="right",width=30, height=3)
+search_button.text_size = 20
+search_button.text_color="white"
+
+
 ip_box = Box(app, width="fill", align="top", border=True)
 ip_button = PushButton(ip_box, command=get_ip, text="Get IP Address",width=57, align="left")
 ip_button.text_size=15
@@ -127,7 +137,7 @@ ipdisplay = Text(ip_box, text="  ",size=20,font="Lato",color="blue")
 
 
 buttons_box = Box(app, width="fill",layout="grid", align="top", border=False)
-buttons_box.bg="blue"
+buttons_box.bg="#80b3ff"
 button = PushButton(buttons_box, command=launch_kodi, text="Launch KODI", grid=[0,0],width=27, height=1)
 button.text_size=20
 button = PushButton(buttons_box, command=stop_video, text="Stop Video",grid=[1,0],width=27, height=1)
