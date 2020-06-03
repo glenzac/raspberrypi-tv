@@ -3,8 +3,19 @@ import socket #required for getting IP Address
 import os  #required to get IP Address
 import subprocess  #required to run shell commands
 import webbrowser
+
 from guizero import App, Text, TextBox, PushButton, Slider, Picture, Combo, CheckBox, Box
 
+# List of CHannel in this order (asianetnews,manorama,news24,mathrubhumi,kairali,mediaone,NDTV News,CNN Live,Parumala,Reporter,news18,jeevan,janam)
+Links=[];
+def loadLinks():
+    with open("links.txt") as file:
+    lines = file.readlines()
+    last = lines[-1]
+    Links.clear()
+    for line in lines[:-1]:
+        Links.append(line[:-1])
+    Links.append(last[:-1])
 
 def highlight(widget): #use to indicate button press 
     widget.bg = "lightblue"
@@ -25,31 +36,31 @@ def load_channel():
     
 def load_channel_asianet():
     #os.system('streamlink --player=vlc  https://www.youtube.com/watch?v=iL53Y28Rp84 240p &')
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=iL53Y28Rp84 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[0]), shell=True)
 def load_channel_manorama():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=jjH6v95z3Nw 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[1]), shell=True)
 def load_channel_24news():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=zcrUCvBD16k 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[2]), shell=True)
 def load_channel_mathrubhumi():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=irF-4N_fHjs 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[3]), shell=True)
 def load_channel_kairali():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=ET5Y3H3Jusc 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[4]), shell=True)
 def load_channel_mediaone():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=d1iwUB9YFnA 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[5]), shell=True)
 def load_channel_amrita():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=iL53Y28Rp84 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[7]), shell=True)
 def load_channel_parumala():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=hjAj_rcbQDU 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[8]), shell=True)
 def load_channel_reporter():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=Qx-f55XBPG4 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[9]), shell=True)
 def load_channel_news18():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=lm-dkwdTDLE 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[10]), shell=True)
 def load_channel_jeevan():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=25Gr0Q2oyuc 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[11]), shell=True)
 def load_channel_janam():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=_WK30gnY3_4 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[12]), shell=True)
 def load_channel_ndtv():
-    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v=l9ViElip9q4 240p &', shell=True)
+    subprocess.call('streamlink --player "vlc --file-caching=5000 --network-caching=5000" https://www.youtube.com/watch?v={} 240p &'.format(Links[6]), shell=True)
     
 def get_ip():
     gw = os.popen("ip -4 route show default").read().split()
@@ -81,6 +92,9 @@ def run_clean():
 
 
 def refresh_links():
+    # run updatelink python
+    subprocess.call('sudo python update_channel.py',shell=True)
+    loadLinks()
     welcome_message.value = my_name.value
 
 app = App(title="TV GUI",width=1920, height=1080)
