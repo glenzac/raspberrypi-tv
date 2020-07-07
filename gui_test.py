@@ -101,7 +101,8 @@ def loadLinks():
 loadLinks();
 
 def highlight(event_data): #use to indicate button press 
-    event_data.widget.bg = "lightblue"
+    event_data.widget.bg = "#bdc3c7"
+    #95a5a6
 
 def lowlight(event_data): #use to indicate button press 
     event_data.widget.bg = "white"
@@ -308,7 +309,7 @@ app = App(title="TV GUI",width=1920, height=1050)
 
 
 channel_box = Box(app, width="fill",layout="grid", align="top", border=False)
-channel_box.bg="#ffcc80"
+channel_box.bg="#ecf0f1"
 
 button1 = PushButton(channel_box, command=load_channel_asianet, text="Asianet News", grid=[0,0],width=27, height=5)
 button1.text_size=19
@@ -347,25 +348,25 @@ button12 = PushButton(channel_box, command=load_channel_jeevan, text="Jeevan TV"
 button12.text_size=19
 button12.when_clicked = highlight
 
-
-youtube_box = Box(app, width="fill", align="top", border=False)
-youtube_box.bg="#ff5f4e"
-search_query_box = TextBox(youtube_box, width ="fill",align="left",multiline=False)
-search_query_box.text_size = 25
-search_query_box.bg = "#dfe6e9"
-search_button = PushButton(youtube_box, command=search_yt_query, text="Search YouTube", align="right",width=30, height=3)
-search_button.text_size = 15
-search_button.text_color="white"
-
-
-ip_box = Box(app, width="fill", align="top", border=True)
+ip_box = Box(app, width="fill", align="top", border=False)
+ip_box.bg = "#95a5a6"
+ip_box.text_color="white"
 ip_button = PushButton(ip_box, command=get_ip, text="Get IP Address",width=30, align="right")
 ip_button.text_size=15
 ipdisplay = Text(ip_box, text="  ",size=20,font="Lato",color="blue")
 
+youtube_box = Box(app, width="fill", align="top", border=False)
+youtube_box.bg="#e74c3c"
+search_query_box = TextBox(youtube_box, width ="fill",align="left",multiline=False)
+search_query_box.text_size = 25
+search_query_box.bg = "#dfe6e9"
+search_button = PushButton(youtube_box, command=search_yt_query, text="Search YouTube", align="right",width=30, height=3)
+search_button.text_size = 20
+search_button.text_color="white"
 
 buttons_box = Box(app, width="fill",layout="grid", align="top", border=False)
-buttons_box.bg="#80b3ff"
+buttons_box.bg="#3498db"
+buttons_box.text_color="white"
 button13 = PushButton(buttons_box, command=launch_kodi, text="Launch KODI", grid=[0,0],width=27, height=1)
 button13.text_size=20
 button13.when_clicked = highlight
@@ -398,6 +399,9 @@ button20.when_clicked = highlight
 #button.text_size=19
 #button = PushButton(buttons_box, command=load_channel_ndtv, text="Button",grid=[3,2],width=27, height=1)
 #button.text_size=19
+
+
+
 
 
 # buttons_box = Box(app, width="fill", align="bottom", border=True)
