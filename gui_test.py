@@ -1,19 +1,21 @@
 #!/usr/bin/python
-"""
-- read output from a subprocess in a background thread
-- show the output in the GUI
-"""
 from tkinter import *
 #import time  #required for sleep 
 import socket #required for getting IP Address
 import os  #required to get IP Address
 import subprocess  #required to run shell commands
-import webbrowser
+import webbrowser #required to open Chromium
 
 from guizero import App, Text, TextBox, PushButton, Box
 
-
 ####################### To display the output of shell commands as a window #####################
+####################### Credits : https://stackoverflow.com/a/32682520      #####################
+
+
+"""
+- read output from a subprocess in a background thread
+- show the output in the GUI
+"""
 import sys
 from itertools import islice
 from subprocess import Popen, PIPE
@@ -85,12 +87,9 @@ class DisplaySubprocessOutputDemo:
         
 ################################### Main Code #########################################################
 
-
-# List of Channel in this order (asianetnews,manorama,news24,mathrubhumi,kairali,mediaone,NDTV News,CNN Live,Parumala,Reporter,news18,jeevan,janam)
 Links=[];
 
-
-def loadLinks():
+def loadLinks(): # used to load the live video IDs from the links.txt file to an array
     with open("/home/pi/GUI/links.txt") as file:
         lines = file.readlines()
         last = lines[-1]
@@ -100,274 +99,233 @@ def loadLinks():
         Links.append(last[:-1])
 loadLinks();
 
-def highlight(event_data): #use to indicate button press 
+def highlight1(event_data): #change channel button colour when_clicked
     event_data.widget.bg = "#bdc3c7"
-    #95a5a6
 
-def lowlight(event_data): #use to indicate button press 
-    event_data.widget.bg = "white"
+def lowlight1(event_data): #change channel button colour when_mouse_leaves
+    event_data.widget.bg = "#ecf0f1"
 
-def search_yt_query():
+def highlight2(event_data): #change button colour when_clicked
+    event_data.widget.bg = "#27ae60"
+
+def lowlight2(event_data): #change channel button colour when_mouse_leaves
+    event_data.widget.bg = "#3498db"
+
+def search_yt_query(): # Run YouTube search based on a query 
     url = "https://www.youtube.com/results?search_query={}".format(search_query_box.value)    
     webbrowser.open(url)
     search_query_box.clear()
+
+### -------------------------------- channel defintions -------------------------------------------###
      
-def load_channel_asianet():
+def load_channel_asianet(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850')
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[0]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[0]), shell=True)
 
-def load_channel_manorama():
+
+def load_channel_manorama(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[1]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[1]), shell=True)
 
-def load_channel_24news():
+
+def load_channel_24news(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[2]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))    
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[2]), shell=True)
 
-def load_channel_mathrubhumi():
+
+def load_channel_mathrubhumi(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[3]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[3]), shell=True)
 
-def load_channel_kairali():
+
+def load_channel_kairali(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[4]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[4]), shell=True)
 
-def load_channel_mediaone():
+
+def load_channel_mediaone(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[5]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[5]), shell=True)
 
-def load_channel_ndtv():
+
+def load_channel_ndtv(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[6]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[6]), shell=True)
 
-def load_channel_cnn():
+
+def load_channel_cnn(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[7]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[7]), shell=True)
 
-def load_channel_parumala():
+
+def load_channel_parumala(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[8]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[8]), shell=True)
 
-def load_channel_reporter():
+
+def load_channel_reporter(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[9]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[9]), shell=True)
 
-def load_channel_news18():
+
+def load_channel_news18(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[10]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[10]), shell=True)
 
-def load_channel_jeevan():
+
+def load_channel_jeevan(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[11]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[11]), shell=True)
 
-def load_channel_janam():
+
+def load_channel_janam(): # function that opens required channel live links
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[12]))
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #subprocess.call('streamlink https://www.youtube.com/watch?v={} 240p &'.format(Links[12]), shell=True)
 
 
-def get_ip():
+### -------------------------------------------------------------------------------------------------------###
+
+
+def get_ip(): # Fetches the local IP Address of the Rpi
     gw = os.popen("ip -4 route show default").read().split()
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((gw[2], 0))
     ipaddr = s.getsockname()[0]
     ipdisplay.value = ipaddr
 
-def launch_kodi():
+def launch_kodi(): # Launch KODI
     subprocess.call('kodi', shell=True)
 
-def stop_video():
+def stop_video(): # Stop all video playback in vlc 
     subprocess.call('sudo killall vlc', shell=True)
     
-def stop_all():
+def stop_all(): # Kill the browser 
     subprocess.call('sudo pkill chromium-browse', shell=True)
     
-def update_firmware():
+def update_firmware(): #  Runs a script that updates the Rpi
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'sudo /home/pi/GUI/auto-update.sh')
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-    #root.mainloop()
-    #subprocess.call('sudo ./auto-update.sh', shell=True)
 
-
-def run_clean():
-    root = tk.Tk()
-    root.geometry('1920x80+0+850') 
-    root.title('Running Process')
-    app = DisplaySubprocessOutputDemo(root,'sudo apt-get -y autoremove')
-    app = DisplaySubprocessOutputDemo(root,'sudo apt-get -y autoclean')
-    root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-
-    #add more cleaning functions
-    #subprocess.call('sudo apt-get -y autoremove ', shell=True)
-    #subprocess.call('sudo apt-get -y autoclean', shell=True)
-    
-def refresh_links():
-    # run updatelink python  
+def refresh_links(): # Runs a script that fetches links to live YouTube video
     root = tk.Tk()
     root.geometry('1920x80+0+850') 
     root.title('Running Process')
     app = DisplaySubprocessOutputDemo(root,'sudo python3 /home/pi/GUI/update_channel.py')
     loadLinks()
     root.protocol("WM_DELETE_WINDOW", app.quit)
-    # center window
-    #root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-
     
-def launch_hotstar():
-    # run www.hotsar.com popular movies
+def launch_hotstar(): # run www.hotsar.com popular movies on Chromium
     subprocess.call('chromium-browser https://www.hotstar.com/in/movies/languages/malayalam', shell=True)
 
-app = App(title="TV GUI",width=1920, height=1050)
 
-#title_box = Box(app, width="fill", align="top", border=True)
-#Text(title_box, text="Rpi TV Menu",size=20,font="Lato",color="black", align="top")
-#Text(title_box, text="          ",size=20,font="Lato",color="black", align="top")
+### -------------------------------------  Main GUI interface ---------------------------------------- ###
 
+app = App(title="TV GUI",width=1920, height=1050) # not full HD dimensions to give space to the taskbar 
 
+# Contains the buttons for the different channels
 channel_box = Box(app, width="fill",layout="grid", align="top", border=False)
 channel_box.bg="#ecf0f1"
-
+# Defining the channel buttons
 button1 = PushButton(channel_box, command=load_channel_asianet, text="Asianet News", grid=[0,0],width=27, height=5)
 button1.text_size=19
-button1.when_clicked = highlight
-button1.when_mouse_leaves = lowlight
+button1.when_clicked = highlight1
+button1.when_mouse_leaves = lowlight1
 button2 = PushButton(channel_box, command=load_channel_manorama, text="Manorama News",grid=[1,0],width=27, height=5)
 button2.text_size=19
-button2.when_clicked = highlight
-button2.when_mouse_leaves = lowlight
+button2.when_clicked = highlight1
+button2.when_mouse_leaves = lowlight1
 button3 = PushButton(channel_box, command=load_channel_24news, text="24 News",grid=[2,0],width=27, height=5)
 button3.text_size=19
-button3.when_clicked = highlight
-button3.when_mouse_leaves = lowlight
+button3.when_clicked = highlight1
+button3.when_mouse_leaves = lowlight1
 button4 = PushButton(channel_box, command=load_channel_mathrubhumi, text="Mathrubhumi News",grid=[3,0],width=27, height=5)
 button4.text_size=19
-button4.when_clicked = highlight
-button4.when_mouse_leaves = lowlight
+button4.when_clicked = highlight1
+button4.when_mouse_leaves = lowlight1
 button5 = PushButton(channel_box, command=load_channel_kairali, text="Kairali News",grid=[0,1],width=27, height=5)
 button5.text_size=19
-button5.when_clicked = highlight
-button5.when_mouse_leaves = lowlight
+button5.when_clicked = highlight1
+button5.when_mouse_leaves = lowlight1
 button6 = PushButton(channel_box, command=load_channel_mediaone, text="Media One",grid=[1,1],width=27, height=5)
 button6.text_size=19
-button6.when_clicked = highlight
-button6.when_mouse_leaves = lowlight
+button6.when_clicked = highlight1
+button6.when_mouse_leaves = lowlight1
 button7 = PushButton(channel_box, command=load_channel_ndtv, text="NDTV Live",grid=[2,1],width=27, height=5)
 button7.text_size=19
-button7.when_clicked = highlight
-button7.when_mouse_leaves = lowlight
+button7.when_clicked = highlight1
+button7.when_mouse_leaves = lowlight1
 button8 = PushButton(channel_box, command=load_channel_cnn, text="CNN Live",grid=[3,1],width=27, height=5)
 button8.text_size=19
-button8.when_clicked = highlight
-button8.when_mouse_leaves = lowlight
+button8.when_clicked = highlight1
+button8.when_mouse_leaves = lowlight1
 button9 = PushButton(channel_box, command=load_channel_parumala, text="Parumala Live",grid=[0,2],width=27, height=5)
 button9.text_size=19
-button9.when_clicked = highlight
-button9.when_mouse_leaves = lowlight
+button9.when_clicked = highlight1
+button9.when_mouse_leaves = lowlight1
 button10 = PushButton(channel_box, command=load_channel_reporter, text="Reporter TV",grid=[1,2],width=27, height=5)
 button10.text_size=19
-button10.when_clicked = highlight
-button10.when_mouse_leaves = lowlight
+button10.when_clicked = highlight1
+button10.when_mouse_leaves = lowlight1
 button11 = PushButton(channel_box, command=load_channel_news18, text="News 18",grid=[2,2],width=27, height=5)
 button11.text_size=19
-button11.when_clicked = highlight
-button11.when_mouse_leaves = lowlight
+button11.when_clicked = highlight1
+button11.when_mouse_leaves = lowlight1
 button12 = PushButton(channel_box, command=load_channel_jeevan, text="Jeevan TV",grid=[3,2],width=27, height=5)
 button12.text_size=19
-button12.when_clicked = highlight
-button12.when_mouse_leaves = lowlight
+button12.when_clicked = highlight1
+button12.when_mouse_leaves = lowlight1
 
+# Contains the button and Text area for printing IP address
 ip_box = Box(app, width="fill", align="top", border=False)
-ip_box.bg = "#95a5a6"
+ip_box.bg = "#34495e"
 ip_box.text_color="white"
 ip_button = PushButton(ip_box, command=get_ip, text="Get IP Address",width=30, align="right")
 ip_button.text_size=15
-ipdisplay = Text(ip_box, text="  ",size=20,font="Lato",color="blue")
+ipdisplay = Text(ip_box, text="  ",size=20,font="Lato",color="white")
 
+# Contains the button and TextBox for YouTube search based on entered query
 youtube_box = Box(app, width="fill", align="top", border=False)
 youtube_box.bg="#e74c3c"
 search_query_box = TextBox(youtube_box, width ="fill",align="left",multiline=False)
@@ -377,41 +335,44 @@ search_button = PushButton(youtube_box, command=search_yt_query, text="Search Yo
 search_button.text_size = 20
 search_button.text_color="white"
 
+# Contains the buttons for executing system functions
 buttons_box = Box(app, width="fill",layout="grid", align="top", border=False)
 buttons_box.bg="#3498db"
 buttons_box.text_color="white"
 button13 = PushButton(buttons_box, command=launch_kodi, text="Launch KODI", grid=[0,0],width=27, height=1)
 button13.text_size=20
-button13.when_clicked = highlight
-button13.when_mouse_leaves = lowlight
+button13.when_clicked = highlight2
+button13.when_mouse_leaves = lowlight2
 button14 = PushButton(buttons_box, command=stop_video, text="Stop Video",grid=[1,0],width=27, height=1)
 button14.text_size=20
-button14.when_clicked = highlight
-button14.when_mouse_leaves = lowlight
+button14.when_clicked = highlight2
+button14.when_mouse_leaves = lowlight2
 button15 = PushButton(buttons_box, command=stop_all, text="Stop all",grid=[2,0],width=27, height=1)
 button15.text_size=20
-button15.when_clicked = highlight
-button15.when_mouse_leaves = lowlight
+button15.when_clicked = highlight2
+button15.when_mouse_leaves = lowlight2
 button16 = PushButton(buttons_box, command=update_firmware, text="Run Update",grid=[3,0],width=27, height=1)
 button16.text_size=20
-button16.when_clicked = highlight
-button16.when_mouse_leaves = lowlight
-button17 = PushButton(buttons_box, command=run_clean, text="Run Cleanup",grid=[0,1],width=27, height=1)
+button16.when_clicked = highlight2
+button16.when_mouse_leaves = lowlight2
+button17 = PushButton(buttons_box, command=stop_all, text="Button",grid=[0,1],width=27, height=1)
 button17.text_size=20
-button17.when_clicked = highlight
-button17.when_mouse_leaves = lowlight
+button17.when_clicked = highlight2
+button17.when_mouse_leaves = lowlight2
 button18 = PushButton(buttons_box, command=refresh_links, text="Refresh Links",grid=[1,1],width=27, height=1)
 button18.text_size=20
-button18.when_clicked = highlight
-button18.when_mouse_leaves = lowlight
+button18.when_clicked = highlight2
+button18.when_mouse_leaves = lowlight2
 button19 = PushButton(buttons_box, command=launch_hotstar, text="Hotstar Movies",grid=[2,1],width=27, height=1)
 button19.text_size=20
-button19.when_clicked = highlight
-button19.when_mouse_leaves = lowlight
+button19.when_clicked = highlight2
+button19.when_mouse_leaves = lowlight2
 button20 = PushButton(buttons_box, command=stop_all, text="Button",grid=[3,1],width=27, height=1)
 button20.text_size=20
-button20.when_clicked = highlight
-button20.when_mouse_leaves = lowlight
+button20.when_clicked = highlight2
+button20.when_mouse_leaves = lowlight2
+
+#extra buttons left for future upgrades
 #button = PushButton(buttons_box, command=load_channel_reporter, text="Button",grid=[0,2],width=27, height=1)
 #button.text_size=19
 #button = PushButton(buttons_box, command=load_channel_news18, text="Button",grid=[1,2],width=27, height=1)
@@ -421,39 +382,4 @@ button20.when_mouse_leaves = lowlight
 #button = PushButton(buttons_box, command=load_channel_ndtv, text="Button",grid=[3,2],width=27, height=1)
 #button.text_size=19
 
-
-
-
-
-# buttons_box = Box(app, width="fill", align="bottom", border=True)
-# Text(buttons_box, text="buttons")
-# 
-#options_box = Box(app, height="fill", align="right", border=True)
-#Text(options_box, text="options")
-# 
-# content_box = Box(app, align="top", width="fill", border=True)
-# Text(content_box, text="content")
-# 
-# form_box = Box(content_box, layout="grid", width="fill", align="left", border=True)
-# Text(form_box, grid=[0,0], text="form", align="right")
-# Text(form_box, grid=[0,1], text="label", align="left")
-# TextBox(form_box, grid=[1,1], text="data", width="fill")
-# 
-# welcome_message = Text(app, text="Rpi TV Menu",size=20,font="Lato",color="black",grid=[2,0], align="center")
-# 
-
-# #Text(channel_box, text="Select Channel",size=20,font="Lato",color="black", align="left")
-#channel_choice = Combo(channel_box, options=["None","Asianet", "Manorama", "26 News", "Mathurbhumi", "Kairali", "Media One", "Parumala Live", "Amrita"], align="left")
-
-# pic_youtube = Picture(app, image="youtube.gif")
-
-
 app.display()
-
-
-
-#app = DisplaySubprocessOutputDemo(root,'sudo apt-get autoremove -y')
-#root.protocol("WM_DELETE_WINDOW", app.quit)
-# center window
-#root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-#root.mainloop()
