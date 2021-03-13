@@ -62,7 +62,7 @@ My `start.sh` script contains the scripts I want to run at startup. The custom r
 - Added following commands to /boot/cmdline.txt to turn off network boost mode `smsc95xx.turbo_mode=N`
 - Run [Rpi diagnostics](https://www.raspberrypi.org/blog/sd-card-speed-test/) to check the speed of your SD card. I have a class 10 card but still it fared well in the speed test.
 
-![Rpi diagnostics](test.png)
+![Rpi diagnostics](https://github.com/glenzac/raspberrypi-tv/blob/master/rpi_diagnostics.jpg)
 
 ## Fetching YouTube live links and streams
 
@@ -125,7 +125,7 @@ The GUI looks as shown here:
 
 Ignore the channel names, they are just YouTube live channels in my local language.
 
-![Rpi diagnostics](test.png)
+![GUI](https://github.com/glenzac/raspberrypi-tv/blob/master/gui_rpi.png)
 
 The blank grey portion at the bottom displays the terminal output when buttons are pressed. Only the current line of the terminal output appears in the space.
 The python code for the custom GUI can be found in the repository.
